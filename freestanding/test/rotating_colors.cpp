@@ -1,23 +1,6 @@
 #include <algorithm>
 #include <cstring>
 
-
-template<typename T> auto peek(const std::uint32_t loc)
-{
-  auto p = reinterpret_cast<const std::byte *>(loc);
-  T t;
-  std::memcpy(&t, p, sizeof(t));
-  asm volatile("" ::: "memory");
-  return t;
-}
-
-template<typename T> inline void poke(const std::uint32_t loc, const T &t)
-{
-  auto p = reinterpret_cast<std::byte *>(loc);
-  std::memcpy(p, &t, sizeof(t));
-  asm volatile("" ::: "memory");
-}
-
 struct RGBA
 {
   std::uint8_t R;

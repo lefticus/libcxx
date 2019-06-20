@@ -1,6 +1,8 @@
 #ifndef LIBCXX_FREESTANDING_STRING_H
 #define LIBCXX_FREESTANDING_STRING_H
 
+#include <stddef.h>
+
 extern "C" {
 char* strchr(const char* str, int ch);
 char* strpbrk(const char* dest, const char* breakset);
@@ -8,7 +10,13 @@ size_t strcspn(const char* dest, const char* src);
 char* strrchr(const char* str, int ch);
 void* memchr(const void* ptr, int ch, size_t count);
 size_t strlen(const char* str);
-void* memset(void* dest, int ch, size_t count);
+
+void* memset(void* dest, int ch, size_t count) {
+  for (size_t loc = 0; loc < count; ++loc) {
+    *(reinterpret_cast<unsigned char *>(dest) + loc) = static_cast<unsigned char>(ch);
+  }
+}
+
 char* strtok(char* str, const char* delim);
 void* memmove(void* dest, const void* src, size_t count);
 size_t strspn(const char* dest, const char* src);

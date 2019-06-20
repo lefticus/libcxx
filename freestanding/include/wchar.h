@@ -1,6 +1,7 @@
 #ifndef LIBCXX_FREESTANDING_WCHAR_H
 #define LIBCXX_FREESTANDING_WCHAR_H
 
+#include <stddef.h>
 
 struct mbstate_t;
 
